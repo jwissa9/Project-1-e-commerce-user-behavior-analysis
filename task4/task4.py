@@ -1,5 +1,7 @@
+
 from mrjob.job import MRJob
 from mrjob.step import MRStep
+
 from heapq import nlargest
 
 class Top3RevenueAnalysis(MRJob):
@@ -38,23 +40,24 @@ class Top3RevenueAnalysis(MRJob):
         #split of the lines by comma
         fields = line.split(',')
         if fields[0] != 'TransactionID': #skip the first line, which is the column titles
+            category = fields[2] #get the category
             product_id = fields[3] #get the product id
             revenue = float(fields[5]) #get the revenue
-            yield product_id, revenue #emit the key value pair as id and revenue
+            yield (product_id, category), revenue #emit the key value pair as id and revenue
     
     #reducer function that calculates the total revenue for each product id        
-    def reducer_sum_revenue(self, product_id, revenues):
+    def reducer_sum_revenue(self, key, revenues):
         total_revenue = sum(revenues)
-        yield product_id, total_revenue #emit the id and their total revenue
+        #product_id, category = key
+        yield key, total_revenue #emit the id and their total revenue
         
-    def reducer_top3_average(self,_,product_revenue_pairs):
+    def reducer_top3_average(self,product_key,revenue):
         product_details = self.load_product_details() #get the product details from the products.csv in a dictionary format to do the calculations
         category_revenues = {} #storage for the list of products and revenues for each category
         
-        for item in product_revenue_pairs:
-            print(f"DEBUG: product_revenue_pairs item: {item}")
         
-        for product_id, total_revenue in product_revenue_pairs:
+        for product_key, total_revenue in revenue:
+            product_id, category = product_key            
             product_info = product_details.get(product_id, {}) #get the product details by id
             category = product_info.get('ProductCategory', 'Unknown')
             price = product_info.get('Price', 0)
