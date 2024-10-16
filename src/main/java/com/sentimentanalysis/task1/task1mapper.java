@@ -1,3 +1,4 @@
+package com.sentimentanalysis.task1;
 
 import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.LongWritable;
@@ -11,14 +12,14 @@ public class task1mapper extends Mapper<LongWritable, Text, Text, IntWritable> {
     private Text userID = new Text();
 
     @Override
-    protected void map(LongWritable key, Text value, Context context) {
+    protected void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException {
         String line = value.toString();
 
         if (line.startsWith("LogID")) { //skip the header
             return;
         }
 
-        String[] fields = line.split(',');
+        String[] fields = line.split(",");
         if (fields.length > 1) {
             userID.set(fields[1]); //get the user id
             context.write(userID, one); //set the key-value pair with id and counter

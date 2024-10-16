@@ -54,7 +54,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>com.sentimentanalysis.hadoop.SentimentAnalysis</mainClass>
+                            <mainClass>com.sentimentanalysis.task1.task1main</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
