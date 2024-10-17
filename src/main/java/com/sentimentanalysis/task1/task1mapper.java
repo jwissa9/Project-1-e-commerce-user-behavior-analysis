@@ -1,15 +1,15 @@
 package com.sentimentanalysis.task1;
 
+import java.io.IOException;
+
 import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Mapper;
 
-import java.io.IOException;
-
 public class task1mapper extends Mapper<LongWritable, Text, Text, IntWritable> {
-    private final static IntWritable one = new IntWritable(1);
-    private Text userID = new Text();
+    private final static IntWritable one = new IntWritable(1); //set for the count
+    private Text userID = new Text(); //set for id
 
     @Override
     protected void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException {
