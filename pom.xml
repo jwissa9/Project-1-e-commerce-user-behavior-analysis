@@ -54,7 +54,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>com.sentimentanalysis.task1.task1main</mainClass>
+                            <mainClass>com.sentimentanalysis.task3.task3main</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
