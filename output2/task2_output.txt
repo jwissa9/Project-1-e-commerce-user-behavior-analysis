@@ -1,0 +1,8 @@
+"Product Category"	"Conversion Rate"
+"Electronics"	0.49712983918106746
+"Furniture"	0.4973542600896861
+"Product Category"	"Conversion Rate"
+"Books"	0.4990505070217445
+"Clothing"	0.5013375495492796
+"Product Category"	"Conversion Rate"
+"Sports"	0.5020674204606964

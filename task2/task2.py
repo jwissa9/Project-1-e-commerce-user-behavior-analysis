@@ -46,10 +46,20 @@ class ProductConversionRate(MRJob):
         for interactions, purchases in values:
             total_interactions += interactions
             total_purchases += purchases
+            
+         # Add headers at the first iteration of the reducer
+        if not hasattr(self, 'headers_added'):
+            self.headers_added = False
+
+        if not self.headers_added:
+            yield 'Product Category', 'Conversion Rate'
+            self.headers_added = True
         
         # Calculate conversion rate (if there are any interactions)
         if total_interactions > 0:
             conversion_rate = total_purchases / total_interactions
+
+                
             yield product_category, conversion_rate
 
     def steps(self):
